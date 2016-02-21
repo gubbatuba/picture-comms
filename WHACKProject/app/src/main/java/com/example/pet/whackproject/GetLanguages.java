@@ -24,9 +24,6 @@ import java.io.IOException;
 public class GetLanguages {
     MainActivity mainAct;
     String receivedResponse;
-    public GetLanguages (MainActivity mainA) {
-        mainAct = mainA;
-    }
 
     public static final MediaType JSON = MediaType.parse("application/json; charset=utf-8");
     String post(String url, String json) throws IOException {
@@ -41,27 +38,40 @@ public class GetLanguages {
 
     private final OkHttpClient client = new OkHttpClient();
 
-    public void run() throws Exception {
+    public String[] run() throws Exception {
         Request request = new Request.Builder()
                 .url("https://www.googleapis.com/language/translate/v2/languages?key=AIzaSyDfaPuvxOjHzqowgruZ53m-jBUpAO7c3hg")
                 .build();
-        client.newCall(request).enqueue(new Callback() {
-            @Override public void onFailure(Request request, IOException throwable) {
-                throwable.printStackTrace();
-            }
-
-            @Override public void onResponse(Response response) throws IOException {
-                if (!response.isSuccessful())
-                    throw new IOException("Unexpected code " + response);
-                Log.i("responseBody", response.body().string());
-                receivedResponse = response.body().toString();
-                mainAct.setSpinnerElements(receivedResponse);
-
-            }
-
-
-        });
+        Response response = client.newCall(request).execute();
+        String[] result = extractLangs(response.toString());
+        return result;
     }
+
+
+
+
+//
+//    public void run() throws Exception {
+//        Request request = new Request.Builder()
+//                .url("https://www.googleapis.com/language/translate/v2/languages?key=AIzaSyDfaPuvxOjHzqowgruZ53m-jBUpAO7c3hg")
+//                .build();
+//        client.newCall(request).enqueue(new Callback() {
+//            @Override public void onFailure(Request request, IOException throwable) {
+//                throwable.printStackTrace();
+//            }
+//
+//            @Override public void onResponse(Response response) throws IOException {
+//                if (!response.isSuccessful())
+//                    throw new IOException("Unexpected code " + response);
+//                Log.i("responseBody", response.body().string());
+//                receivedResponse = response.body().toString();
+//                mainAct.setSpinnerElements(receivedResponse);
+//
+//            }
+//
+//
+//        });
+
 
 
 

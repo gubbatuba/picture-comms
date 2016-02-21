@@ -29,6 +29,11 @@ import io.indico.utils.IndicoException;
 public class MainActivity extends AppCompatActivity {
     private static String topResult;
 
+    final GetLanguages languages = new GetLanguages();
+
+
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,22 +42,22 @@ public class MainActivity extends AppCompatActivity {
         Indico.init(this, getString(R.string.indico_api_key), null);
         setContentView(R.layout.activity_main);
         MainActivity mainA = new MainActivity();
-        GetLanguages languages = new GetLanguages(mainA);
+
 //        String response = langauages.get("http://www.roundsapp.com/post", json);
-
-        try {
-            languages.run();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
-        setContentView(R.layout.activity_main);
-        //setSpinnerElements("English");
-        try {
-            languages.run();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+//
+//        try {
+//            languages.run();
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
+//
+//        setContentView(R.layout.activity_main);
+//        //setSpinnerElements("English");
+//        try {
+//            languages.run();
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
 
 
 //        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -97,14 +102,23 @@ public class MainActivity extends AppCompatActivity {
         startActivityForResult(intent, TAKE_PICTURE);
     }
 
-    public void setSpinnerElements (String response){
+    public void setSpinnerElements (){
         Spinner dropdown = (Spinner)findViewById(R.id.langaugesSpinner);
 //        new ArrayList<String> elements = new ArrayList<String>;
 //        ArrayList.add(input);
 //        String[] items = new String[]{"1", "2", "three"};
         //String[] test = new String[] {input};
 
-        String[] test = GetLanguages.extractLangs(response);
+        String[] test = {"string"};
+
+        try {
+            test = languages.run();
+            Log.i("test","gothere");
+        }
+        catch (Exception e)
+        {
+            e.printStackTrace();
+        }
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_dropdown_item, test);
         dropdown.setAdapter(adapter);
     }
@@ -142,7 +156,7 @@ public class MainActivity extends AppCompatActivity {
 
                             @Override
                             public void handle(IndicoResult result) throws IndicoException {
-                                Toast.makeText(MainActivity.this, result.getImageRecognition().toString(), Toast.LENGTH_LONG).show();
+                                //Toast.makeText(MainActivity.this, result.getImageRecognition().toString(), Toast.LENGTH_LONG).show();
                                 for (String key :result.getImageRecognition().keySet())
 
                                 topResult = result.getImageRecognition().keySet().toString();
