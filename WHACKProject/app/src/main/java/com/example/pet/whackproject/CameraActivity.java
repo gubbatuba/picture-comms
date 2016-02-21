@@ -1,63 +1,48 @@
+/**
+ * Created by Pet on 2/20/16.
+ */
+
 package com.example.pet.whackproject;
 
 import android.app.Activity;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.ArrayAdapter;
-import android.widget.Button;
-import android.widget.Spinner;
-
-import android.widget.TextView;
 import android.widget.Toast;
+
 import java.io.IOException;
 import java.util.HashMap;
+
 import io.indico.Indico;
 import io.indico.network.IndicoCallback;
 import io.indico.results.IndicoResult;
 import io.indico.utils.IndicoException;
 
-
-public class MainActivity extends AppCompatActivity {
+public class CameraActivity extends AppCompatActivity {
     private static String topResult;
+
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         Indico.init(this, getString(R.string.indico_api_key), null);
         setContentView(R.layout.activity_main);
-        GetLanguages languages = new GetLanguages();
-//        String response = langauages.get("http://www.roundsapp.com/post", json);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
 
-        try {
-            languages.run();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
-        setContentView(R.layout.activity_main);
-        setSpinnerElements("English");
-
-
-//        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-//        setSupportActionBar(toolbar);
-
-       FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+                takePhoto();
             }
         });
     }
@@ -83,34 +68,13 @@ public class MainActivity extends AppCompatActivity {
 
         return super.onOptionsItemSelected(item);
     }
+    private static final int TAKE_PICTURE = 1;
+//    private Uri imageUri;
 
-    /* called when the user clicks the take a picture button */
-    public void takePic (View v){
-
+    public void takePhoto() {
         Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
         startActivityForResult(intent, TAKE_PICTURE);
     }
-
-    public void setSpinnerElements (String input){
-        Spinner dropdown = (Spinner)findViewById(R.id.langaugesSpinner);
-//        new ArrayList<String> elements = new ArrayList<String>;
-//        ArrayList.add(input);
-//        String[] items = new String[]{"1", "2", "three"};
-        String[] test = new String[] {input};
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_dropdown_item, test);
-        dropdown.setAdapter(adapter);
-    }
-
-    // helper method
-    public void showResults(String result) {
-        TextView text = (TextView) findViewById(R.id.TranslatedResult);
-        text.setText(result);
-    }
-
-
-    /* utilizing the indico API for image referencing */
-
-    private static final int TAKE_PICTURE = 1;
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -128,20 +92,18 @@ public class MainActivity extends AppCompatActivity {
 //                                .getBitmap(cr, selectedImage);
 //                        Log.e("Dafuq", imageUri.toString());
                         Indico.imageRecognition.predict(data.getData(), new HashMap<String, Object>(){{
-                            put("top_n",1);
+                            put("top_n",2);
+
                         }
                         }, new IndicoCallback<IndicoResult>() {
-
                             @Override
                             public void handle(IndicoResult result) throws IndicoException {
-                                Toast.makeText(MainActivity.this, result.getImageRecognition().toString(), Toast.LENGTH_LONG).show();
-                                for (String key :result.getImageRecognition().keySet())
+                                Toast.makeText(CameraActivity.this, result.getImageRecognition().toString(), Toast.LENGTH_LONG).show();
 
-                                topResult = result.getImageRecognition().keySet().toString();
-                                showResults(topResult);
-                                Log.i("resultKeys", topResult);
 
                             }
+
+
                         });
 ////                        Toast.makeText(this, selectedImage.toString(),
 //                                Toast.LENGTH_LONG).show();
@@ -155,13 +117,8 @@ public class MainActivity extends AppCompatActivity {
 //                                .show();
 //                        Log.e("Camera", e.toString());
 //                    }
+
                 }
         }
     }
-
-
-
-
-
-
 }
