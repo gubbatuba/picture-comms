@@ -16,10 +16,7 @@
     <TextView
         android:id="@+id/langauge"
         android:text="Select a Language"
-        android:layout_marginLeft="50dp"
-        android:layout_marginRight="50dp"
         android:layout_marginTop="50dp"
-        android:layout_marginBottom="50dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
 
@@ -27,21 +24,55 @@
         android:id="@+id/langaugesSpinner"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_below="@+id/langauge"
         android:background="@android:drawable/btn_dropdown"
         android:spinnerMode="dropdown"
         />
 
 
 
-    <TextView
-        android:id="@+id/takePicText"
-        android:text="Take A Picture"
-        android:layout_below="@+id/langaugesSpinner"
-        android:layout_marginTop="100dp"
-        android:layout_marginBottom="100dp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+    <!--<TextView-->
+        <!--android:id="@+id/takePicText"-->
+        <!--android:text="Take A Picture"-->
+        <!--android:layout_below="@+id/langaugesSpinner"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content" />-->
 
+    <Button
+        android:id="@+id/TakePicButton"
+        android:text="Take A Picture"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:onClick="takePic"
+
+        android:typeface="monospace"
+        android:textSize="20dp"
+        android:layout_below="@+id/langaugesSpinner"
+        android:layout_centerHorizontal="true" />
+
+    <TextView
+        android:id="@+id/TranslatedResult"
+        android:text="@string/translated"
+        android:textSize="20pt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/TakePicButton"/>
+
+    <TextView
+        android:id="@+id/EnglishResult"
+        android:text="@string/englishResult"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/TranslatedResult"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:text="Small Text"
+        android:id="@+id/textView"
+        android:layout_above="@+id/TranslatedResult"
+        android:layout_toEndOf="@+id/TranslatedResult" />
 
 
 </RelativeLayout>

@@ -1,4 +1,7 @@
 <resources>
     <string name="app_name">WHACKProject</string>
     <string name="action_settings">Settings</string>
+    <string name="indico_api_key">4ce0b1b1a1fc1cd713ced32f824cabed</string>
+    <string name= "translated"></string>
+    <string name = "englishResult"></string>
 </resources>
