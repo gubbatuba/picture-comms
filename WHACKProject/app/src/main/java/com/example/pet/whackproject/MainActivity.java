@@ -91,12 +91,14 @@ public class MainActivity extends AppCompatActivity {
         startActivityForResult(intent, TAKE_PICTURE);
     }
 
-    public void setSpinnerElements (String input){
+    public void setSpinnerElements (String response){
         Spinner dropdown = (Spinner)findViewById(R.id.langaugesSpinner);
 //        new ArrayList<String> elements = new ArrayList<String>;
 //        ArrayList.add(input);
 //        String[] items = new String[]{"1", "2", "three"};
-        String[] test = new String[] {input};
+        //String[] test = new String[] {input};
+
+        String[] test = GetLanguages.extractLangs(response);
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_dropdown_item, test);
         dropdown.setAdapter(adapter);
     }
