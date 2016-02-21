@@ -20,7 +20,7 @@ import io.indico.network.IndicoCallback;
 import io.indico.results.IndicoResult;
 import io.indico.utils.IndicoException;
 
-public class MainActivity extends AppCompatActivity {
+public class CameraActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
