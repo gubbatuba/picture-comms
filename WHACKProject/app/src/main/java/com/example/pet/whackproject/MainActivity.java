@@ -36,7 +36,8 @@ public class MainActivity extends AppCompatActivity {
 
         Indico.init(this, getString(R.string.indico_api_key), null);
         setContentView(R.layout.activity_main);
-        GetLanguages languages = new GetLanguages();
+        MainActivity mainA = new MainActivity();
+        GetLanguages languages = new GetLanguages(mainA);
 //        String response = langauages.get("http://www.roundsapp.com/post", json);
 
         try {
@@ -46,20 +47,25 @@ public class MainActivity extends AppCompatActivity {
         }
 
         setContentView(R.layout.activity_main);
-        setSpinnerElements("English");
+        //setSpinnerElements("English");
+        try {
+            languages.run();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
 
 //        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
 //        setSupportActionBar(toolbar);
 
-       FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
+       //FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+//        fab.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
+//                        .setAction("Action", null).show();
+//            }
+//        });
     }
 
     @Override
@@ -91,12 +97,12 @@ public class MainActivity extends AppCompatActivity {
         startActivityForResult(intent, TAKE_PICTURE);
     }
 
-    public void setSpinnerElements (String response){
-        Spinner dropdown = (Spinner)findViewById(R.id.langaugesSpinner);
-//        new ArrayList<String> elements = new ArrayList<String>;
-//        ArrayList.add(input);
-//        String[] items = new String[]{"1", "2", "three"};
-        //String[] test = new String[] {input};
+//    public void setSpinnerElements (String response){
+//        Spinner dropdown = (Spinner)findViewById(R.id.langaugesSpinner);
+////        new ArrayList<String> elements = new ArrayList<String>;
+////        ArrayList.add(input);
+////        String[] items = new String[]{"1", "2", "three"};
+//        //String[] test = new String[] {input};
 
         String[] test = GetLanguages.extractLangs(response);
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_dropdown_item, test);

@@ -22,6 +22,11 @@ import java.io.IOException;
 
 
 public class GetLanguages {
+    MainActivity mainAct;
+    String receivedResponse;
+    public GetLanguages (MainActivity mainA) {
+        mainAct = mainA;
+    }
 
     public static final MediaType JSON = MediaType.parse("application/json; charset=utf-8");
     String post(String url, String json) throws IOException {
@@ -49,9 +54,16 @@ public class GetLanguages {
                 if (!response.isSuccessful())
                     throw new IOException("Unexpected code " + response);
                 Log.i("responseBody", response.body().string());
+                receivedResponse = response.body().toString();
+                mainAct.setSpinnerElements(receivedResponse);
+
             }
+
+
         });
     }
+
+
 
     public static String[] extractLangs(String response) {
         String[] lang_names = new String[1];
@@ -74,4 +86,5 @@ public class GetLanguages {
         }
         return lang_names;
     }
+
 }
