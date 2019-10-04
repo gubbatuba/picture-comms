@@ -6,7 +6,11 @@ dependencies:
 build_targets:
   - name: default
     root: WHACKProject
+    environment:
+      - DEBIAN_FRONTEND=noninteractive
     commands:
+      - apt-get -y update
+      - apt-get -y install lib32stdc++6 lib32z1
       - sdkmanager --install tools
       - sdkmanager --install platform-tools
       - sdkmanager --install build-tools;23.0.2
