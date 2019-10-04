@@ -113,7 +113,7 @@ public class MainActivity extends AppCompatActivity {
 
         try {
             test = languages.run();
-            Log.i("test","gothere");
+            Log.i("test","gotheregoheregoeverywhere");
         }
         catch (Exception e)
         {
