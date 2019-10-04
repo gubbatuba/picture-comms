@@ -1,7 +1,6 @@
 dependencies:
   build:
     - android:latest
-    - androidndk:r15c
     - java:8.202.08
     - gradle:5.4.1
 build_targets:
@@ -10,10 +9,9 @@ build_targets:
     commands:
       - sdkmanager --install tools
       - sdkmanager --install platform-tools
-      - sdkmanager --install build-tools;23.0.3
+      - sdkmanager --install build-tools;23.0.2
       - sdkmanager --install platforms;android-23
       - sdkmanager --install system-images;android-23;default;x86_64
-      - ./gradlew lint
       - ./gradlew clean test
 ci:
   builds:
